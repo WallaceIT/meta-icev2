@@ -1,0 +1,65 @@
+From 1f77c26c2420686c40e685a3c6263bdcd602f45b Mon Sep 17 00:00:00 2001
+From: Francesco Valla <valla.francesco@gmail.com>
+Date: Tue, 9 Aug 2016 21:44:17 +0200
+Subject: [PATCH] ARM: dts: am335x_icev2: add 1wire node
+
+Signed-off-by: Francesco Valla <valla.francesco@gmail.com>
+---
+ arch/arm/boot/dts/am335x-icev2.dts | 24 ++++++++++++++++++++++++
+ 1 file changed, 24 insertions(+)
+
+diff --git a/arch/arm/boot/dts/am335x-icev2.dts b/arch/arm/boot/dts/am335x-icev2.dts
+index 8787cb8..dfab433 100644
+--- a/arch/arm/boot/dts/am335x-icev2.dts
++++ b/arch/arm/boot/dts/am335x-icev2.dts
+@@ -13,6 +13,7 @@
+ 
+ /dts-v1/;
+ 
++#include <dt-bindings/input/input.h>
+ #include "am33xx.dtsi"
+ 
+ / {
+@@ -185,9 +186,20 @@
+ 		rotary-encoder,steps = <10>;
+ 		rotary-encoder,absolute-encoder;
+ 	};
++
++	onewire {
++		pinctrl-names   = "default";
++		pinctrl-0       = <&onewire_pins_default>;
++		compatible      = "w1-gpio";
++		status          = "okay";
++		gpios           = <&gpio0 12 GPIO_ACTIVE_HIGH>;
++	};
+ };
+ 
+ &am33xx_pinmux {
++	pinctrl-names = "default";
++	pinctrl-0 = <&user_gpios>;
++
+ 	user_leds: user_leds {
+ 		pinctrl-single,pins = <
+ 			AM33XX_IOPAD(0x91c, PIN_OUTPUT | MUX_MODE7) /* (J18) gmii1_txd3.gpio0[16] */
+@@ -345,6 +357,18 @@
+ 			AM33XX_IOPAD(0x94c, (PIN_INPUT_PULLDOWN | MUX_MODE7))
+ 		>;
+ 	};
++
++	onewire_pins_default: onewire_pins_default {
++		pinctrl-single,pins = <
++			AM33XX_IOPAD(0x978, PIN_INPUT_PULLUP | MUX_MODE7) /* uart1_ctsn.gpio0_12 */
++		>;
++	};
++
++	user_gpios: user_gpios {
++		pinctrl-single,pins = <
++			AM33XX_IOPAD(0x97c, PIN_INPUT_PULLUP | MUX_MODE7) /* uart1_rtsn.gpio0_13 */
++		>;
++	};
+ };
+ 
+ &i2c0 {
+-- 
+2.7.4
+
