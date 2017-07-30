@@ -1,0 +1,36 @@
+From d49ec734817de6c5aa61557f54aace72461475df Mon Sep 17 00:00:00 2001
+From: Francesco Valla <valla.francesco@gmail.com>
+Date: Sun, 30 Jul 2017 19:54:24 +0200
+Subject: [PATCH 2/3] ARM: dts: am335x-icev2: add ssd1306fb LCD node
+
+Signed-off-by: Francesco Valla <valla.francesco@gmail.com>
+---
+ arch/arm/boot/dts/am335x-icev2.dts | 12 ++++++++++++
+ 1 file changed, 12 insertions(+)
+
+diff --git a/arch/arm/boot/dts/am335x-icev2.dts b/arch/arm/boot/dts/am335x-icev2.dts
+index a2810b7f865a..3a3459a7abdd 100644
+--- a/arch/arm/boot/dts/am335x-icev2.dts
++++ b/arch/arm/boot/dts/am335x-icev2.dts
+@@ -355,6 +355,18 @@
+ 		reg = <0x2d>;
+ 	};
+ 
++	lcd: display@3c {
++		compatible = "solomon,ssd1306fb-i2c";
++		reg = <0x3c>;
++		solomon,height = <16>;
++		solomon,width = <96>;
++		solomon,com-seq;
++		solomon,com-invdir;
++		solomon,page-offset = <0>;
++		solomon,prechargep1 = <2>;
++		solomon,prechargep2 = <13>;
++	};
++
+ 	tpic2810: gpio@60 {
+ 		compatible = "ti,tpic2810";
+ 		reg = <0x60>;
+-- 
+2.11.0
+

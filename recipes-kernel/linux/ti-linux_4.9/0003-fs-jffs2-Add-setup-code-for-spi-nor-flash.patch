@@ -1,7 +1,7 @@
-From ee5a16c8a402d5c274317d239b22dbe9ed2566d1 Mon Sep 17 00:00:00 2001
+From ca5c3618a74eb4e9b120b88bd0d2ff3f0351406f Mon Sep 17 00:00:00 2001
 From: Francesco Valla <valla.francesco@gmail.com>
 Date: Sun, 17 Jul 2016 23:27:08 +0200
-Subject: [PATCH 1/3] fs: jffs2: Add setup code for spi nor flash.
+Subject: [PATCH 3/3] fs: jffs2: Add setup code for spi nor flash
 
 Flash need to be setup, while using it for Jffs2 filesystem.
 The setup code checks was not present for serial flash like
@@ -39,10 +39,10 @@ Signed-off-by: Francesco Valla <valla.francesco@gmail.com>
  2 files changed, 9 insertions(+)
 
 diff --git a/fs/jffs2/fs.c b/fs/jffs2/fs.c
-index 2caf168..da934cb 100644
+index 567653f7c0ce..e530d5a49092 100644
 --- a/fs/jffs2/fs.c
 +++ b/fs/jffs2/fs.c
-@@ -731,6 +731,13 @@ static int jffs2_flash_setup(struct jffs2_sb_info *c) {
+@@ -728,6 +728,13 @@ static int jffs2_flash_setup(struct jffs2_sb_info *c) {
  			return ret;
  	}
  
@@ -57,7 +57,7 @@ index 2caf168..da934cb 100644
  	if (jffs2_ubivol(c)) {
  		ret = jffs2_ubivol_setup(c);
 diff --git a/fs/jffs2/os-linux.h b/fs/jffs2/os-linux.h
-index 824e61e..e0112d4 100644
+index 824e61ede465..e0112d4caef5 100644
 --- a/fs/jffs2/os-linux.h
 +++ b/fs/jffs2/os-linux.h
 @@ -90,6 +90,7 @@ static inline void jffs2_init_inode_info(struct jffs2_inode_info *f)
@@ -77,5 +77,5 @@ index 824e61e..e0112d4 100644
  void jffs2_nor_wbuf_flash_cleanup(struct jffs2_sb_info *c);
  void jffs2_dirty_trigger(struct jffs2_sb_info *c);
 -- 
-2.7.4
+2.11.0
 
